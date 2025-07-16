@@ -31,6 +31,16 @@
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      background-color: #eee;
+    }
+
+    .card-header {
+      background-color: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px;
+      text-align: center;
     }
 
     .info {
@@ -41,17 +51,12 @@
       font-size: 14px;
     }
 
-    .info h2 {
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-
     canvas {
       position: absolute;
-      top: 0;
+      top: 35px; /* adjust for header height */
       left: 0;
       z-index: 2;
-      border-radius: 15px;
+      border-radius: 0 0 15px 15px;
     }
   </style>
 </head>
@@ -79,3 +84,125 @@
       {
         name: "Riddhi",
         desc: `“The Go-To Guide” - Whether it’s planning, KT sessions, or getting things done, Riddhi is the steady hand we all rely on. Her recent AI-based test initiative for sitemaps shows she’s always thinking ahead. It makes it easy for me to take a vacation, knowing things are in great hands. Consistently making things better, aligning everyone towards the goals, never saying no, but finding solutions. Now she is handling the release planning as well. Most importantly, taking care of everything related to "search" for Comcast.`,
+        bgColor: "#28B463", coverColor: "#C8E6C9"
+      },
+      {
+        name: "Anushka",
+        desc: `“The Quick Learner” - Jumped into the deep end and started handling consolidated release emails across 12 platforms with ease. Always willing to help, she’s now a reliable part of both execution and knowledge sharing. Ensuring QA for Samsung, Microsoft, Comcast and more, she is helping with quick promotions testing, documentation and just organizing everything when Riddhi is not around.`,
+        bgColor: "#33C9DC", coverColor: "#B2EBF2"
+      },
+      {
+        name: "Shiva",
+        desc: `“The Fresh Perspective” - With a powerhouse of ideas and suggestions, Shiva is new to the team, but already contributing ideas and learning fast. His enthusiasm brings a nice energy, and we're excited to see how he shapes up in the coming weeks.`,
+        bgColor: "#AF7AC5", coverColor: "#E1BEE7"
+      },
+      {
+        name: "Rushikesh",
+        desc: `“The Silent Strength” - Everyone behind his back speaks good for him :) A great achievement in itself, he may not speak much, but his work says it all. From following processes to finding tricky bugs, he quietly ensures quality without needing the spotlight. He has been contributing very meaningfully and reliably for Comcast and LG testing.`,
+        bgColor: "#EC407A", coverColor: "#FFCDD2"
+      },
+      {
+        name: "Priya",
+        desc: `“The Ads Expert” - Now the go-to person for everything ads-related. She’s taken complete ownership of ads and macro testing and consistently finds those hard-to-catch issues, even from the ad logs and requests. Always curious and eager to improve, very reliable team member.`,
+        bgColor: "#00B8D4", coverColor: "#B3E5FC"
+      },
+      {
+        name: "Suresh",
+        desc: `“The Foundation Builder” - I guess everyone knows! Suresh has played a key role in shaping the Lightning framework, contributing to a minimum 10% improvement in AWT. He’s always ready with thoughtful solutions to every challenge, be it FrontEnd, BackEnd, Content, Infra or even Design. Engrossed deeply in his work, he still finds out time to make things better, suggest improvements and contribute in streamlining the processes. Skillfully implemented the complex multi-platform framework for ease of code release in all IPTV platforms.`,
+        bgColor: "#00C853", coverColor: "#DCEDC8"
+      },
+      {
+        name: "Hari",
+        desc: `“The Quiet Creator” - From features like Fuse to helpful internal tools like the Test URL generator for the QA team, Hari consistently delivers solid work. He developed fawesome.tv now getting a traffic of 20k+ daily, he takes care of all other websites too and still finds time to build things that make life easier for the team. A team member I can always count on for just everything, and also reminds us we are humans from time to time :D`,
+        bgColor: "#FF6D00", coverColor: "#FFE082"
+      },
+      {
+        name: "Abhishek",
+        desc: `“The Fast Adaptor” - A recent addition, Abhishek has already made his mark by contributing to new features and fixing bugs quickly. He’s also begun mentoring newer members—fast-tracking his way into being a strong team asset.`,
+        bgColor: "#D81B60", coverColor: "#F8BBD0"
+      },
+      {
+        name: "Anubhav",
+        desc: `“The Quick Starter” - Not even a week and he already developed demo-ready game! His enthusiasm is impressive, A promising start.`,
+        bgColor: "#FF4081", coverColor: "#FCE4EC"
+      },
+      {
+        name: "Apurva",
+        desc: `“The Smart Kid” - Soft-spoken, but very efficient. Apurva quickly got the hang of the architecture and delivered polished games early on. Always professional, always pleasant. He is definitely a great asset to have in the team.`,
+        bgColor: "#00ACC1", coverColor: "#B2EBF2"
+      }
+    ];
+
+    const container = document.getElementById('container');
+
+    cards.forEach(card => {
+      const cardDiv = document.createElement('div');
+      cardDiv.className = 'scratch-card';
+
+      const header = document.createElement('div');
+      header.className = 'card-header';
+      header.textContent = card.name;
+      cardDiv.appendChild(header);
+
+      const infoDiv = document.createElement('div');
+      infoDiv.className = 'info';
+      infoDiv.style.backgroundColor = card.bgColor;
+      infoDiv.innerHTML = `<p>${card.desc.replace(/\n/g, "<br>")}</p>`;
+      cardDiv.appendChild(infoDiv);
+      container.appendChild(cardDiv);
+
+      // Wait for content to render, then add canvas
+      requestAnimationFrame(() => {
+        const height = infoDiv.offsetHeight;
+        const canvas = document.createElement('canvas');
+        canvas.width = 280;
+        canvas.height = height;
+        canvas.style.height = height + 'px';
+        canvas.style.top = header.offsetHeight + 'px';
+        cardDiv.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = card.coverColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#888';
+        ctx.font = "16px sans-serif";
+        ctx.fillText("Scratch Here", 80, height / 2);
+
+        const isTouch = 'ontouchstart' in window;
+        let painting = false;
+
+        function getXY(e) {
+          const rect = canvas.getBoundingClientRect();
+          const x = isTouch ? e.touches[0].clientX : e.clientX;
+          const y = isTouch ? e.touches[0].clientY : e.clientY;
+          return [x - rect.left, y - rect.top];
+        }
+
+        function startPaint(e) {
+          painting = true;
+          draw(e);
+        }
+
+        function endPaint() {
+          painting = false;
+          ctx.beginPath();
+        }
+
+        function draw(e) {
+          if (!painting) return;
+          e.preventDefault();
+          const [x, y] = getXY(e);
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(x, y, 20, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        canvas.addEventListener(isTouch ? 'touchstart' : 'mousedown', startPaint);
+        canvas.addEventListener(isTouch ? 'touchend' : 'mouseup', endPaint);
+        canvas.addEventListener(isTouch ? 'touchmove' : 'mousemove', draw);
+      });
+    });
+  </script>
+</body>
+</html>
