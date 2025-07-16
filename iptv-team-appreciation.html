@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scratch & Reveal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fff1eb, #ace0f9);
+      margin: 0;
+      padding: 50px;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-size: 2.5em;
+    }
+
+    .scratch-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .scratch-card {
+      position: relative;
+      width: 280px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .info {
+      position: relative;
+      padding: 15px;
+      z-index: 1;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .info h2 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scratch to Reveal the Stars!</h1>
+  <div class="scratch-container" id="container"></div>
+
+  <script>
+    const cards = [
+      {
+        name: "Gagan",
+        desc: `A true team player who always comes prepared with the right data. Thanks to Gagan’s support and coordination, we launched Lightning and Fuse ahead of schedule—turning plans into achievements. Always ready to help and support in every way he can. So we overachieved for the first time :D`,
+        bgColor: "#FF5733", coverColor: "#FFE0B2"
+      },
+      {
+        name: "Alka",
+        desc: `“The Detail Detective” - Always focused, always thorough. Alka’s attention to detail and thoughtful analysis help us avoid any major slips. She now smoothly handles sprint planning and retros, not just for Samsung, but for all the IPTV platforms—yet maintaining a cheerful and calm attitude. She handles a major part of the platform communications, guides the QA team towards better and more detail-oriented testing.`,
+        bgColor: "#C70039", coverColor: "#F8BBD0"
+      },
+      {
+        name: "Nimisha",
+        desc: `“Our Process Anchor” - With her consistent inputs and ownership of website testing, Nimisha ensures no important issue goes unnoticed. She’s been meticulous in following up and making sure critical search issues are resolved. Very dependable. Coming up with a lot of queries and suggestions to ensure we are aligned on the important objectives. She is the one who started maintaining a design change log, and now she is handling the weekly website reports as well with thorough data and insights.`,
+        bgColor: "#FFC300", coverColor: "#D1C4E9"
+      },
+      {
+        name: "Riddhi",
+        desc: `“The Go-To Guide” - Whether it’s planning, KT sessions, or getting things done, Riddhi is the steady hand we all rely on. Her recent AI-based test initiative for sitemaps shows she’s always thinking ahead. It makes it easy for me to take a vacation, knowing things are in great hands. Consistently making things better, aligning everyone towards the goals, never saying no, but finding solutions. Now she is handling the release planning as well. Most importantly, taking care of everything related to "search" for Comcast.`,
